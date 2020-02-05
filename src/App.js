@@ -1,10 +1,18 @@
 import React from 'react'
-import Todos from './components/Todos'
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { Provider } from 'react-redux'
+import store from './store'
+import Todos from './containers/Todos'
+import Navbar from './components/Navbar'
+import Profile from './containers/Profile'
+import About from './containers/About'
+import Login from './containers/Login'
+import PrivateRoute from './components/PrivateRoute'
+
 
 class App extends React.Component {
   componentDidMount() {
     console.log('mounted')
-
   }
 
   componentDidUpdate() {
@@ -17,9 +25,30 @@ class App extends React.Component {
 
   render() {
     return (
-      <div className="container mx-auto">
-        <Todos />
-      </div>
+      <Provider store={store}>
+        <Router>
+          <div className="container mx-auto">
+            <Navbar />
+            <Switch>
+              <Route path="/about">
+                <About />
+              </Route>
+              <Route path="/contact">
+                <p>Contact</p>
+              </Route>
+              <Route path="/login">
+                <Login />
+              </Route>
+              <Route exact path="/user/:id">
+                <Profile />
+              </Route>
+              <PrivateRoute exact path="/">
+                <Todos />
+              </PrivateRoute>
+            </Switch>
+          </div>
+        </Router>
+      </Provider>
     )
   }
 }

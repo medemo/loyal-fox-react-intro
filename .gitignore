@@ -24,3 +24,5 @@ yarn-error.log*
 
 # tailwind build
 src/index.css
+
+src/config/firebase.js
