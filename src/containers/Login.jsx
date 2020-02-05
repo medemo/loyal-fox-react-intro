@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Redirect, withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { login } from '../store/actions/userAction'
@@ -8,9 +8,10 @@ function Login(props) {
   // const dispatch = useDispatch()
   // const location = useLocation()
   const location = props.location
+  const [selectedId, setSelectedId] = useState(0)
 
   const handleLogin = () => {
-    props.login({ id: 1 })
+    selectedId && props.login({ id: selectedId })
   }
 
   if (props.user) {
@@ -18,12 +19,26 @@ function Login(props) {
   }
 
   return (
-    <button
-      className="border px-5 py-2"
-      onClick={handleLogin}
-    >
-      LOGIN
-    </button>
+    <div className="flex items-center mt-3">
+      <select
+        className="rounded-l h-10"
+        value={selectedId}
+        onChange={e => setSelectedId(Number(e.target.value))}
+      >
+        <option value={0} disabled >Choose a user</option>
+        {
+          Array(10).fill().map((_, i) => (
+            <option key={i} value={i + 1}>user {i + 1}</option>
+          ))
+        }
+      </select>
+      <button
+        className="border rounded ml-3 px-5 py-2"
+        onClick={handleLogin}
+      >
+        LOGIN
+      </button>
+    </div>
   )
 }
 

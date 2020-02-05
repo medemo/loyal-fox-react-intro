@@ -1,14 +1,16 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import TodoList from '../components/TodoList'
 import AddTodo from '../components/AddTodo'
 import { addTodo, resetTodos } from '../store/actions/todosAction'
 import { logout } from '../store/actions/userAction'
+import { fetchTodos } from '../store/actions/todosAction'
 
 import { useDispatch, useSelector } from 'react-redux'
 
 
 function Todos(props) {
   const todos = useSelector(state => state.todos)
+  const user = useSelector(state => state.user)
   const dispatch = useDispatch()
 
   const addNewTodo = (newTodo) => {
@@ -23,14 +25,24 @@ function Todos(props) {
     dispatch(logout())
   }
 
+  useEffect(() => {
+    dispatch(fetchTodos(user.id))
+  }, [dispatch, user.id])
+
   return (
     <>
       <AddTodo addNewTodo={addNewTodo} />
-      {
-        todos.length > 0
-          ? <TodoList todos={todos} />
-          : <p>No todos</p>
-      }
+      <div className="my-5">
+        {
+          todos.loading
+            ? <p>Loading</p>
+            : todos.error
+              ? <p>something wrong</p>
+              : todos.data.length > 0
+                ? <TodoList todos={todos.data} />
+                : <p>No todos</p>
+        }
+      </div>
       <div className="flex mt-5">
         <button
           onClick={resetTodo}

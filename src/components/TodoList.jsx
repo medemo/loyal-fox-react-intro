@@ -6,8 +6,8 @@ function TodoList({ todos }) {
       <p>Loyal Fox todos:</p>
       <ul className="list-disc list-inside">
         {
-          todos.map((todo, i) => {
-            return <li key={i}>{todo}</li>
+          todos.map((todo) => {
+            return <li key={todo.id}>{todo.title}</li>
           })
         }
       </ul>
