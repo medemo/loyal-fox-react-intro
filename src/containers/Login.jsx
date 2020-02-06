@@ -3,7 +3,7 @@ import { Redirect, withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { login } from '../store/actions/userAction'
 
-function Login(props) {
+export function Login(props) {
   // const user = useSelector(state => state.user)
   // const dispatch = useDispatch()
   // const location = useLocation()
@@ -21,6 +21,7 @@ function Login(props) {
   return (
     <div className="flex items-center mt-3">
       <select
+        data-testid="select-user"
         className="rounded-l h-10"
         value={selectedId}
         onChange={e => setSelectedId(Number(e.target.value))}
@@ -33,6 +34,7 @@ function Login(props) {
         }
       </select>
       <button
+        data-testid="login-button"
         className="border rounded ml-3 px-5 py-2"
         onClick={handleLogin}
       >

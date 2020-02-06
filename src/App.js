@@ -11,17 +11,17 @@ import PrivateRoute from './components/PrivateRoute'
 
 
 class App extends React.Component {
-  componentDidMount() {
-    console.log('mounted')
-  }
+  // componentDidMount() {
+  //   console.log('mounted')
+  // }
 
-  componentDidUpdate() {
-    console.log('updated')
-  }
+  // componentDidUpdate() {
+  //   console.log('updated')
+  // }
 
-  componentWillUnmount() {
-    console.log('before destroy')
-  }
+  // componentWillUnmount() {
+  //   console.log('before destroy')
+  // }
 
   render() {
     return (
