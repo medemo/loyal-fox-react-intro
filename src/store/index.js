@@ -1,16 +1,16 @@
-import { createStore, combineReducers, applyMiddleware } from 'redux'
-import todosReducer from './reducers/todosReducer'
-import userReducer from './reducers/userReducer'
+import { createStore, applyMiddleware, compose } from 'redux'
+
+import reducer from './reducers'
 import { thunk } from './middlewares'
 
-const rootReducer = combineReducers({
-  todos: todosReducer,
-  user: userReducer
-})
-
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const store = createStore(
-  rootReducer,
-  applyMiddleware(thunk)
-)
+  reducer,
+  /* preloadedState, */
+  composeEnhancers(
+    applyMiddleware(thunk)
+  )
+);
+
 
 export default store
